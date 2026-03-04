@@ -1,86 +1,139 @@
-# Desi N Pass - Digital Collectible E-commerce Store
 
-![Desi N Pass Social Preview](assets/social-preview.png)
+# E-commerce
 
+A lightweight, serverless single-product digital store. No frameworks. No backend servers. Just HTML, CSS, JavaScript, Razorpay, and Google Sheets.
 
-### ➡️ [View Live Demo](https://abhisheksinghshekhawatsde.github.io/Desi-N-Pass/) ⬅️
-
-This repository contains the complete frontend source code for the **Desi N Pass** e-commerce website. It's a lightweight, serverless, single-product digital store designed to be fast, secure, and easy to deploy.
-
-The project allows users to land on a polished product page, purchase a personalized digital "pass," and pay securely online. The order details are then captured in a Google Sheet backend for manual fulfillment.
-
-## 🚀 Core Features
-
-- **Polished Frontend:** A fully responsive, multi-section landing page built with modern HTML5 and CSS3.
-- **Product Showcase:** Includes a hero section, feature highlights, and a PDP-style section with an image carousel.
-- **Dedicated Checkout Flow:** A secure, multi-page checkout process to capture user details and handle payments.
-- **Online Payments:** Integrated with **Razorpay** to accept Cards, UPI, Netbanking, and Wallets.
-- **Serverless Backend:** Uses **Google Sheets** as a database and **Google Apps Script** as a secure API endpoint to log orders.
-- **Fraud Prevention:** Implements a client-side **HMAC-SHA256 token** system to verify the authenticity of each order against the Razorpay transaction.
-- **SEO & Social Optimized:** Includes a full suite of meta tags, Open Graph tags, Twitter cards, and JSON-LD schema for rich search results.
-- **Legal Compliance:** Comes with pre-built, professional templates for Terms of Service, Privacy Policy, Shipping, and Refund pages.
-
-## 🛠️ Tech Stack
-
-| Component               | Stack                 | Why?                                                                      |
-| ----------------------- | --------------------- | ------------------------------------------------------------------------- |
-| **Frontend**            | HTML / CSS / JS       | No frameworks for maximum speed, performance, and full control.           |
-| **Backend/API**         | Google Apps Script    | Free, powerful enough for the logic, and integrates seamlessly with Sheets. |
-| **Database**            | Google Sheets         | Free, easy to manage, and acts as a simple order management dashboard.    |
-| **Payment Gateway**     | Razorpay              | Excellent documentation, easy integration, and robust support for India.  |
-| **Security Hashing**    | CryptoJS              | Lightweight client-side library for generating the HMAC verification token. |
-| **Hosting (Recommended)**| Cloudflare Pages / Netlify / Vercel | Free, offers global CDN for speed, and provides continuous deployment.     |
-
-## ⚙️ System Flow
-
-1.  **User Visits `index.html`**: Sees the product and marketing content.
-2.  **Clicks "Buy Now"**: Fills out a name and email on the `#buy` section's form.
-3.  **Redirect to Checkout**: The user is redirected to `checkout.html`, carrying the name and email via `sessionStorage`.
-4.  **Payment Initiation**: `checkout.html` automatically triggers the Razorpay payment popup.
-5.  **Payment Success**: Upon successful payment, Razorpay redirects the user back to `index.html` with success parameters in the URL (`?status=success&...`).
-6.  **Backend Submission**: The `script.js` on `index.html` detects the success parameters, packages the order data (including the `paymentId` and `verificationToken`), and sends it to the Google Apps Script URL.
-7.  **Order Recorded**: The Apps Script receives the data, generates a unique serial number, and appends a new row to the Google Sheet.
-8.  **Fulfillment**: The store owner manually verifies the payment in the Razorpay dashboard using the `paymentId` and hashed token, then emails the personalized digital pass to the customer.
-
-## 🚀 Getting Started (Setup Guide)
-
-To get this project running, you need to configure three main parts: the frontend, the backend, and the payment gateway.
-
-### 1. Backend Setup (Google Sheet & Apps Script)
-
-1.  **Create a Google Sheet:** Name it "Desi N Pass Orders".
-2.  **Set Headers:** In the first row, add these exact column headers:
-    `Timestamp`, `Name`, `Email`, `PaymentID`, `SerialNumber`, `Status`, `VerificationToken`
-3.  **Create Apps Script:** Go to `Extensions` > `Apps Script`. Delete any existing code and paste the contents of the final `Code.gs` script.
-4.  **Deploy:** Click `Deploy` > `New deployment`.
-    -   Select type: **Web app**.
-    -   Execute as: **Me**.
-    -   Who has access: **Anyone**.
-5.  Authorize the permissions and **copy the generated Web app URL**.
-
-### 2. Payment Gateway Setup (Razorpay)
-
-1.  **Create a Razorpay Account:** Complete your KYC to accept payments.
-2.  **Get API Keys:** In the Razorpay Dashboard, go to `Account & Settings` > `API Keys`.
-3.  **Generate Keys:** Generate a new key for **Test Mode** first. Copy the **Key ID** (`rzp_test_...`).
-
-### 3. Frontend Configuration (`script.js` & `checkout.html`)
-
-1.  **Open `script.js`:**
-    -   Replace `YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL` with the URL you copied from your Apps Script deployment.
-2.  **Open `checkout.html`:**
-    -   Inside the `<script>` tag at the bottom, find the `CONFIG` object.
-    -   Replace `rzp_test_...` with your **Razorpay Test Key ID**.
-    -   Define a long, random, and unique `SECRET_KEY`. **Save this key somewhere safe!**
-3.  **SEO Configuration (Optional but Recommended):**
-    -   In `index.html`, replace all instances of `https://YOUR_FINAL_WEBSITE_URL.com/` with your actual domain once you have deployed the site.
-
-### 4. Final Testing and Go-Live
-
-1.  Perform an end-to-end test using Razorpay's Test Mode.
-2.  Verify that the order appears correctly in your Google Sheet and Razorpay Dashboard.
-3.  Once ready, switch Razorpay to **Live Mode**, generate a **Live Key ID**, and update it in `checkout.html`.
-4.  Deploy your project folder to your chosen hosting provider.
+Live demo: [abhisheksinghshekhawatsde.github.io/E-commerce](https://abhisheksinghshekhawatsde.github.io/E-commerce)
 
 ---
-**Author:** [Your Name/Handle]
+
+## What Is This
+
+A complete, production-ready template for selling a single digital product online. A customer lands on the product page, fills in their details, pays via Razorpay, and their order gets logged to a Google Sheet automatically. Fulfillment happens manually from there.
+
+The entire system runs on free infrastructure. Clone it, configure three things, and you have a working store.
+
+---
+
+## Features
+
+- Fully responsive landing page with hero, product showcase, and image carousel
+- Multi-page checkout flow using `sessionStorage` to carry user data
+- Razorpay integration supporting Cards, UPI, Netbanking, and Wallets
+- Serverless order logging via Google Apps Script to Google Sheets
+- HMAC-SHA256 client-side token for payment verification and fraud prevention
+- Full SEO setup: meta tags, Open Graph, Twitter Cards, JSON-LD schema
+- Legal pages included: Terms of Service, Privacy Policy, Shipping, Refunds
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Frontend | HTML5, CSS3, Vanilla JavaScript |
+| Backend / API | Google Apps Script |
+| Database | Google Sheets |
+| Payments | Razorpay |
+| Security | CryptoJS (HMAC-SHA256) |
+| Hosting | GitHub Pages / Vercel / Netlify / Cloudflare Pages |
+
+---
+
+## System Flow
+
+
+User lands on index.html
+    → Fills name + email → clicks Buy Now
+    → Redirected to checkout.html (data via sessionStorage)
+    → Razorpay popup triggers
+    → Payment succeeds → redirect back to index.html with ?status=success
+    → script.js packages order + verificationToken → POST to Apps Script URL
+    → Apps Script generates serial number → appends row to Google Sheet
+    → Owner verifies in Razorpay dashboard → fulfills order manually
+
+
+---
+
+## Project Structure
+
+
+E-commerce/
+├── index.html        # Product landing page + order success handler
+├── checkout.html     # Checkout page with Razorpay integration
+├── script.js         # Core logic: payment handling, order submission, HMAC token
+├── style.css         # All styling
+├── contact.html      # Contact page
+├── privacy.html      # Privacy Policy
+├── terms.html        # Terms of Service
+├── shipping.html     # Shipping Policy
+├── refunds.html      # Refund Policy
+
+
+---
+
+## Setup Guide
+
+### 1. Backend: Google Sheet + Apps Script
+
+1. Create a new Google Sheet, name it whatever suits your product
+2. Add these exact headers in row 1:
+   `Timestamp`, `Name`, `Email`, `PaymentID`, `SerialNumber`, `Status`, `VerificationToken`
+3. Open `Extensions > Apps Script`, paste in your `Code.gs` logic
+4. Deploy as a Web App:
+   - Execute as: **Me**
+   - Who has access: **Anyone**
+5. Copy the generated Web App URL
+
+### 2. Payment Gateway: Razorpay
+
+1. Create a Razorpay account and complete KYC
+2. Go to `Account & Settings > API Keys`
+3. Generate a Test Mode key and copy the Key ID (`rzp_test_...`)
+
+### 3. Frontend Configuration
+
+**In `script.js`:**
+
+const APPS_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL";
+
+
+**In `checkout.html`:**
+
+const CONFIG = {
+  key: "rzp_test_YOUR_KEY_ID",
+  SECRET_KEY: "YOUR_LONG_RANDOM_SECRET_KEY"
+};
+
+
+**In `index.html`:**
+Replace all instances of `https://YOUR_FINAL_WEBSITE_URL.com/` with your actual deployed domain.
+
+### 4. Test and Go Live
+
+1. Run a full end-to-end test in Razorpay Test Mode
+2. Confirm the order row appears correctly in your Google Sheet
+3. Switch to Razorpay Live Mode, update the key in `checkout.html`
+4. Deploy the project folder to your hosting provider
+
+---
+
+## Getting Started
+
+No build step required.
+
+
+git clone https://github.com/AbhishekSinghShekhawatSDE/E-commerce.git
+cd E-commerce
+open index.html
+
+
+For production, push to GitHub and connect the repo to GitHub Pages, Vercel, Netlify, or Cloudflare Pages. Set root directory to `/`.
+
+---
+
+## Contributing
+
+1. Fork the repo
+2. Create a branch: `git checkout -b feature/your-feature`
+3. Commit your changes
