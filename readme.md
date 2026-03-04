@@ -1,4 +1,4 @@
- `markdown
+
 # E-commerce
 
 A serverless single-product digital store built with pure HTML, CSS, and JavaScript.
@@ -29,7 +29,7 @@ Generate a Test Key ID from `Account & Settings > API Keys`.
 
 **3. Configure**
 
- js
+
 // script.js
 const APPS_SCRIPT_URL = "YOUR_WEB_APP_URL";
 
@@ -47,7 +47,7 @@ Test end-to-end in Test Mode. Switch to Live Key. Deploy to GitHub Pages, Vercel
 
 ## Run Locally
 
- bash
+
 git clone https://github.com/AbhishekSinghShekhawatSDE/E-commerce.git
 cd E-commerce
 open index.html
